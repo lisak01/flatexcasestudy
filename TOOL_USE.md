@@ -15,8 +15,7 @@
 - That gave me the time for the parts that need my judgement: method choice, data checks
   and interpreting the results. In daily work I would use it the same way.
 - My background is data engineering, not banking regulation. I used the AI as a tutor to learn
-  the risk concepts quickly (VaR, Expected Shortfall, Kupiec test, Basel traffic light) and checked
-  the key rules against the original Basel documents.
+  the risk concepts quickly (VaR, Expected Shortfall, Kupiec test, Basel traffic light)
 - I did not accept numbers from the AI. Every figure is reproduced by `python run_all.py`.
 
 ## How I checked the output

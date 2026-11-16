@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from statistics import NormalDist 
+from statistics import NormalDist
 
 import duckdb
 import numpy as np
@@ -137,11 +137,13 @@ def risk_snapshot(rates: pd.Series, window: int = config.WINDOW_DAYS) -> dict:
         "as_of": rates.index[-1], # date of the last rate
         "rate": float(rates.iloc[-1]), # last rate
         "value_eur": value, # our USD in EUR today
-        "value_eur_prev": float(eur_value(rates.iloc[-1 - config.HORIZON_DAYS])), # our USD in EUR 5 days ago
+        "value_eur_prev": float(eur_value(rates.iloc[-1 - config.HORIZON_DAYS])), # our USD 
+        #in EUR 5 days ago
         "var_pct": var_pct, "var_eur": var_pct * value, # VaR in % and in EUR
         "es_pct": es_pct, "es_eur": es_pct * value, # ES in % and in EUR
         "param_var_pct": par_pct, "param_var_eur": par_pct * value, # simple VaR in % and in EUR
-        "sqrt5_var_pct": historical_var(relative_loss(daily)) * math.sqrt(config.HORIZON_DAYS), # 1-day VaR x sqrt(5), only for comparison
+        "sqrt5_var_pct": historical_var(relative_loss(daily)) * math.sqrt(config.HORIZON_DAYS), 
+        # 1-day VaR x sqrt(5), only for comparison
         "n_scenarios": len(losses),# how many scenarios (750)
         "window": window,# window size in days
     }
@@ -197,7 +199,8 @@ def backtest_summary(roll: pd.DataFrame) -> dict:
     x_last = int(last["exception"].sum())# breaches in the last 250 days
     return { # all backtest results for the dashboard
         "n": n, "exceptions": x, "rate": x / n, "kupiec_lr": lr, "kupiec_p": p, # all days
-        "n_nonoverlap": n_sub, "exceptions_nonoverlap": x_sub, "kupiec_p_nonoverlap": p_sub, # every 5th day
+        "n_nonoverlap": n_sub, "exceptions_nonoverlap": x_sub, "kupiec_p_nonoverlap": p_sub, 
+        # every 5th day
         "n_last": len(last), "exceptions_last": x_last, # last 250 days
         "kupiec_p_last": kupiec_test(len(last), x_last)[1], # Kupiec on last 250 days
         "basel_zone": basel_zone(x_last), # Green / Yellow / Red
@@ -212,5 +215,6 @@ def save_results(roll: pd.DataFrame, db_path: Path = config.DUCKDB_PATH) -> None
     out["es_eur"] = out["es"] * out["value_eur"]# ES in EUR
     con = duckdb.connect(str(db_path)) # open the database
     con.register("r", out) # make the table visible to SQL
-    con.execute("CREATE OR REPLACE TABLE fx_risk_history AS SELECT * FROM r")  # save it, overwrite old one
+    con.execute("CREATE OR REPLACE TABLE fx_risk_history AS SELECT * FROM r")  #save it, 
+    #overwrite old one
     con.close()# close the database

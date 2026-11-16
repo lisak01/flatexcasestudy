@@ -15,7 +15,8 @@ DUCKDB_PATH = DATA_DIR / "risk.duckdb"
 # --- Task 1a: ECB source -----------------------------------------------------
 # Series key in the ECB Data Portal: daily (D) reference rate, USD per 1 EUR.
 #   EXR = exchange rates dataflow, D = daily, USD = currency, EUR = denominator,
-#   SP00 = spot, A = average (the official ECB euro foreign exchange reference rate), E = end of period.
+#   SP00 = spot, A = average (the official ECB euro foreign exchange reference rate), 
+# E = end of period.
 ECB_BASE_URL = "https://data-api.ecb.europa.eu/service/data"
 ECB_FLOW = "EXR"
 ECB_SERIES_KEY = "D.USD.EUR.SP00.A"
@@ -80,7 +81,8 @@ INDEX_OUTPUT_PATH = OUTPUT_DIR / "index_analysis.html"#results is here
 
 VIX_TICKER = "VIX.INDX"  # crisis signal only, not part of the correlations
 VIX_CRISIS_LEVEL = 30  # a day counts as crisis if VIX closes above 30
-VIX_SENSITIVITY_LEVELS = [20, 25, 30, 35, 40]  # repeat the analysis with these thresholds to check the result is robust
+VIX_SENSITIVITY_LEVELS = [20, 25, 30, 35, 40]  # repeat the analysis with 
+#these thresholds to check the result is robust
 
 # NASDAQ Composite and NASDAQ 100 share asset_key US6311011026 (two prices per day).
 NASDAQ_KEY = "US6311011026" # index's number in the file price hist

@@ -7,33 +7,45 @@
 The source used by the daily run is set in config.FX_SOURCE.
 """
 
+# allows type hints like "str | None" (only for hints)
 from __future__ import annotations
 
+# checks if a library is installed
 import importlib.util
 
+# the common type of all adapters and the error type
 from src.adapters.base import SourceAdapter, SourceError
+
+# the ECB adapter and the function that reads ECB CSV
 from src.adapters.ecb import EcbClient, parse_ecb_csv
+
+# the adapter for files (local or cloud)
 from src.adapters.files import FileAdapter
 
+# what other files can import from this folder
 __all__ = ["SourceAdapter", "SourceError", "EcbClient", "FileAdapter", "parse_ecb_csv",
            "make_adapter", "catalogue"]
 
 
 def make_adapter(source: str) -> SourceAdapter:
-    """Pick the adapter from a short name or a URI."""
+    """Pick the adapter: "ecb" -> ECB website, anything else -> file path."""
+    # "ecb" -> download from the ECB website
     if source == "ecb":
         return EcbClient()
+    # anything else is a file path (local, s3://, az://, gs://)
     return FileAdapter(source)
 
 
 def catalogue() -> list[dict]:
-    """All connectable source types, with the driver they need and whether it is installed.
+    """List of all source types for the Data Pipeline tab, and if their driver is installed.
 
     Shown on the Data Pipeline page of the portal.
     """
+    # True if no extra library is needed or it is installed
     def installed(module: str | None) -> bool:
         return module is None or importlib.util.find_spec(module) is not None
 
+    # one row per source: name, type, example, needed library, use, status
     rows = [
         ("ECB Data Portal", "REST API (SDMX, CSV)", "ecb", None,
          "Market data from public / vendor APIs", "Live: daily source of the FX rate"),
@@ -48,6 +60,7 @@ def catalogue() -> list[dict]:
         ("In-memory bucket", "Test double for a cloud bucket", "memory://bucket/path.csv", None,
          "Simulates a cloud bucket in tests", "Tested (unit tests)"),
     ]
+    # turn each row into a dictionary for the web page
     return [{"name": n, "kind": k, "example": e, "driver": d or "built in",
              "driver_installed": installed(d), "use": u, "status": s}
             for n, k, e, d, u, s in rows]

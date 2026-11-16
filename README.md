@@ -1,5 +1,8 @@
 # From market data to risk insight - case study
 
+![Dashboard](flatex3gui.png)
+
+
 Three tasks in one project: an ECB exchange-rate ETL (1a), a daily FX-risk
 dashboard (1b) and an index correlation analysis (2).
 
@@ -21,7 +24,6 @@ The portal has six tabs:
 - **Index Analysis** - Task 2 answer, charts, data traps
 - **Data Pipeline** - connectable sources (ECB, files, S3, Azure, GCS), architecture, load log, tables
 - **Quality** - every test with its result, ruff result
-- **Design Decisions** - what was asked, what was built, why; case requirements checklist
 
 Other commands:
 ```bash
