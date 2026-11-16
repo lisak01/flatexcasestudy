@@ -1,0 +1,8 @@
+# Local data: DuckDB file and the supplied input files are not committed
+data/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.env
+rates.csv

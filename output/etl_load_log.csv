@@ -1,0 +1,2 @@
+run_at,mode,series_id,source,rows_fetched,rows_new,min_date,max_date,status,checks,message
+2026-11-11 16:09:36.911099,initial,EXR.D.USD.EUR.SP00.A,ecb_data_portal,7134,7134,1999-01-04,2026-11-11,OK,"{""batch"": {""valid_dates"": true, ""valid_values"": true, ""rate_positive"": true, ""no_duplicate_dates"": true}, ""series"": {""unexplained_missing_weekdays"": {""count"": 0, ""dates"": []}, ""weekend_dates"": {""count"": 0, ""dates"": []}, ""large_jumps"": {""count"": 0, ""dates"": []}}}","7134 new rows, 7134 rows stored, last date 2026-11-11."
