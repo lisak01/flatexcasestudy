@@ -355,3 +355,11 @@ def main(argv: list[str] | None = None) -> int:
 # run main() only when the file is started directly
 if __name__ == "__main__":
     sys.exit(main())
+
+"""
+python -c "import duckdb; print(duckdb.connect('data/risk.duckdb', read_only=True)
+.sql('''SELECT rate_date, rate FROM fx_rates ORDER BY rate_date DESC LIMIT 5'''))
+
+SELECT rate_date, round(var_eur) AS var_eur, round(es_eur) 
+AS es_eur FROM fx_risk_history ORDER BY rate_date DESC LIMIT 5
+"""

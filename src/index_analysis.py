@@ -149,7 +149,7 @@ def split_nasdaq(px: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
 
 
 def clean_prices(dim: pd.DataFrame, px: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """Wide table: one column per index, one row per date (close prices)."""
+    """Wide table: one column per index, one row per date (close prices) without weekends."""
     # split the two NASDAQ indices
     nasdaq, info = split_nasdaq(px)
     # names for all other indices (without the shared NASDAQ key)
